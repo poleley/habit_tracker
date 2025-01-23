@@ -25,43 +25,6 @@ class Settings(BaseSettings):
     test_database_port: int
     test_database_name: str
 
-    # Кафка
-    kafka_host: str
-    kafka_port: int
-    kafka_topic_write_summary: str
-    kafka_topic_write_correcting: str
-
-    kafka_topic_read_result: str
-    kafka_group_read_result: str
-
-    kafka_topic_read_error: str
-    kafka_group_read_error: str
-
-    kafka_topic_write_ivr: str
-    kafka_topic_read_ivr: str
-    kafka_group_read_ivr: str
-
-    kafka_topic_write_partner: str
-    kafka_topic_read_partner: str
-    kafka_group_read_partner: str
-
-    # Oktell
-    oktell_url: str
-
-    # Bitrix
-    bitrix_url: str
-
-    min_loan_amount: int = 1500000
-    max_loan_amount: int = 100000000
-
-    # Redis
-    redis_host: str
-
-    @property
-    def kafka_url(self) -> str:
-        """Url kafka."""
-        return f"{self.kafka_host}:{self.kafka_port}"
-
     @property
     def database_url(self):
         """Url database."""
