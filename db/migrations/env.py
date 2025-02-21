@@ -3,9 +3,8 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-from app.core.repositories.sqlalchemy.base_model import Base
-from app.core.settings import settings
-from app.habit_tracker.repositories.sqlalchemy.models import *  # noqa: F403
+from habits.adapters.postgresql.models import *
+from habits.settings import settings
 
 config = context.config
 config.set_main_option("sqlalchemy.url", f"{settings.database_url}?async_fallback=True")

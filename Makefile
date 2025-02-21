@@ -27,3 +27,5 @@ rundocker_b:
 rundocker:
 	docker compose up
 
+db:
+	docker run --env-file .env_postgres -p 5400:5432 postgres:16
