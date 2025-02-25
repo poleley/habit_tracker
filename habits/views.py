@@ -11,3 +11,10 @@ class Habit(BaseModel):
     name: str
     description: str | None
 
+
+class User(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    uuid: UUID
+    username: str
+    email: str

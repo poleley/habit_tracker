@@ -1,5 +1,5 @@
 run:
-	uvicorn app.main:app --reload --port 8000
+	uvicorn habits.api.main:app --reload --port 8000
 
 install:
 	pip install poetry
