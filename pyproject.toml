@@ -1,0 +1,97 @@
+[tool.poetry]
+name = "habit-tracker"
+version = "0.1.0"
+description = "Habit tracker"
+authors = ["polina <polovnikovapo@mail.ru>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "0.115.0"
+uvicorn = "0.31.1"
+pydantic = "2.9.2"
+pydantic-settings = "2.5.2"
+sqlalchemy = "2.0.35"
+alembic = "1.13.3"
+asyncpg = "0.29.0"
+python-dotenv = "1.0.1"
+loguru = "0.7.2"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+pyjwt = "^2.10.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.0"
+pytest-asyncio = "^0.25.0"
+pytest-cov = "^6.0.0"
+ruff = "^0.3.0"
+mypy = "^1.9.0"
+black = "^24.3.0"
+
+[tool.ruff]
+lint.select = [
+    "E",  # Ошибки синтаксиса (в том числе PEP8)
+    "F",  # Ошибки, связанные с некорректным использованием переменных
+    "I",  # Импорты (например, сортировка и правильное использование)
+    "B",  # Ошибки, которые предотвращает библиотека `flake8-bugbear`
+    "A",  # Аннотации типов
+    "C",  # Условные выражения
+    "D",  # Документация (например, наличие docstring)
+    "UP", # Миграции на Python 3
+]
+
+# Исключаем некоторые правила, которые вам могут не понадобиться
+lint.ignore = [
+    "D100",  # Отсутствует docstring в публичном модуле
+    "D101",  # Отсутствует docstring в публичном классе
+    "D102",  # Отсутствует docstring в публичном методе
+    "D103",  # Отсутствует docstring в публичной функции
+    "D104",  # Отсутствует docstring в публичном пакете
+    "D205",  # Пустая строка после однострочного docstring
+    "D400",  # Отсутствует точка в конце первой строки docstring
+    "D406",  # Неверное написание раздела в docstring (например, "Args" вместо "Parameters")
+    "D407",  # Пропущен раздел в docstring (например, отсутствует "Returns" для функции, которая что-то возвращает)
+    "E203",  # Конфликт с `black` из-за пробелов перед двоеточием в срезах (black форматирует без пробела)
+    "E501",  # Игнорируем ограничение длины строки (проверяется `black`, который сам разбивает длинные строки)
+]
+
+# Автоматическое исправление
+fix = true
+
+# Разрешить определённые ошибки для автоматического исправления
+lint.fixable = ["E", "F", "I"]
+
+# Файлы и каталоги, которые нужно исключить
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "migrations",
+    "db",
+]
+
+# Расширенные параметры для сортировки импортов
+[tool.ruff.lint.isort]
+combine-as-imports = true  # Объединять импорты с использованием `as`
+force-single-line = false  # Оставлять импорты на одной строке, если возможно
+known-third-party = ["numpy", "pandas", "requests"]  # Спецификация сторонних библиотек
+extra-standard-library = ["dataclasses"]  # Добавляем библиотеки в стандартную библиотеку
+
+# Настройка правил для аннотаций типов
+
+# Настройка правил для Docstring
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"  # Используем стиль документации NumPy
+ignore-decorators = []  # Если нужно игнорировать какие-то декораторы
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 88
+max-doc-length = 72
+
+[tool.mypy]
+plugins = ['pydantic.mypy']
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

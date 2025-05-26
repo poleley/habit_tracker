@@ -15,6 +15,8 @@ class Settings(BaseSettings):
 
     test_database_host: str
     test_database_port: int
+    
+    cors_allowed_origins: str
 
     @property
     def database_url(self):
@@ -31,6 +33,11 @@ class Settings(BaseSettings):
             f"postgresql+asyncpg://{self.database_username}:{self.database_password}@{self.test_database_host}:"
             f"{self.test_database_port}/{self.database_name}"
         )
+    
+    @property
+    def cors_allowed_origins_list(self):
+        """List of allowed origins for CORS."""
+        return self.cors_allowed_origins.split(",")
 
     class Config:
         """Special class."""

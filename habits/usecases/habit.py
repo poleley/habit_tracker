@@ -2,8 +2,9 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from habits.adapters.postgresql.repositories.unitofwork import UnitOfWork
-from habits.adapters.postgresql.repositories.habit import HabitRepository, UserRepository
+from habits.adapters.postgresql.repositories.habit import HabitRepository
 from habits import errors, views, commands
+from habits.adapters.postgresql.repositories.user import UserRepository
 
 
 @dataclass
@@ -26,11 +27,11 @@ class AddHabitUseCase:
 
     async def __call__(self, command: commands.AddHabit) -> views.Habit:
         user = await self.user_repository.find(
-            uuid=command.user_id
+            uuid=command.user_uuid
         )
         if user is None:
             raise errors.NotFoundError(
-                f"User '{command.user_id}' not found"
+                detail=f"User '{command.user_uuid}' not found"
             )
 
         new_habit = await self.habit_repository.save(command)
